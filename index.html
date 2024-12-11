@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required><br>
+
+            <button type="submit">Login</button>
+        </form>
+        <div id="response"></div>
+    </div>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Your website.js script -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // // Log the values in the console to check if getElementById works
+            // console.log('Email:', email);
+            // console.log('Password:', password);
+
+            // // Display the values on the webpage under the form
+            // document.getElementById('response').innerHTML = `
+            //     <p><strong>Email:</strong> ${email}</p>
+            //     <p><strong>Password:</strong> ${password}</p>
+            // `;
+
+            const serviceUrl = 'http://localhost:3000/validate-login';
+
+            // Send login data to the service
+            axios.post(serviceUrl, { email, password })
+                .then(response => {
+                    // Display the success response
+                    document.getElementById('response').innerHTML = `<p style="color: green;">${response.data}</p>`;
+                })
+                .catch(error => {
+                    // Display error message
+                    document.getElementById('response').innerHTML = `<p style="color: red;">${error.response.data}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>

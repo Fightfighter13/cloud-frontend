@@ -42,7 +42,7 @@
             //     <p><strong>Password:</strong> ${password}</p>
             // `;
 
-            const serviceUrl = 'http://localhost:3000/validate-login';
+            const serviceUrl = 'http://172.16.0.2:3000/validate-login';
 
             // Send login data to the service
             axios.post(serviceUrl, { email, password })
